@@ -48,4 +48,9 @@ export default {
 </script>
 
 <style>
+.Tabbaritem img{
+    height:24px;
+    width:24px;
+    vertical-align: center;
+}
 </style>

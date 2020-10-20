@@ -56,22 +56,3 @@ a{
     float: right;
 }
 
-/* 设置tabbar样式 */
-#tabbar{
-    display:flex;
-    justify-content: space-around;
-    background-color: #f6f6f6;
-    /* 设置绝对定位后，不设置宽高就挤到一起了，弹性盒失效？ */
-    width: 372px; 
-    font-size:12px;
-    padding-top:2px;
-    position: absolute;
-    bottom:0;
-    box-shadow: 0 -2px 1px rgba(1, 9, 9, .4);
-}
-
-.Tabbaritem img{
-    height:24px;
-    width:24px;
-    vertical-align: center;
-}
