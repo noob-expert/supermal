@@ -1,0 +1,77 @@
+@import "./normalize.css";
+
+/* :root获取根元素；设置根元素html样式 */
+:root{
+    --color-text:#666;
+    --color-high-text:#ff5777;
+    --color-tint:#ff8198;
+    --color-background:#fff;
+    --font-size:14px;
+    --line-height:1.5
+}
+
+/* 设置全局样式 */
+*,*::before,*::after{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 基础样式 */
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    user-select: none; /*禁止用户鼠标在页面上选中文字/图片等*/
+    /* 苹果浏览器兼容性 */
+    -webkit-tap-highlight-color: transparent;
+    background: var(--color-background);
+    color:var(--color-text);
+    width:100vw
+}
+
+a{
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+/* BFC */
+.clear-fix::after{
+    clear: both;
+    content:'';
+    display: block;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+
+.clear-fix{
+    zoom:1
+}
+
+.left{
+    float: left;
+}
+
+.right{
+    float: right;
+}
+
+/* 设置tabbar样式 */
+#tabbar{
+    display:flex;
+    justify-content: space-around;
+    background-color: #f6f6f6;
+    /* 设置绝对定位后，不设置宽高就挤到一起了，弹性盒失效？ */
+    width: 372px; 
+    font-size:12px;
+    padding-top:2px;
+    position: absolute;
+    bottom:0;
+    box-shadow: 0 -2px 1px rgba(1, 9, 9, .4);
+}
+
+.Tabbaritem img{
+    height:24px;
+    width:24px;
+    vertical-align: center;
+}
