@@ -3,12 +3,14 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-    <swiper :banners="banners"></swiper>
-    <Recommend :recommends="recommends"></Recommend>
-    <featureview></featureview>
-    <control-bar :bars="menus" @barindex="BarIndex"></control-bar>
-    <!-- 这里注意单引号双引号不能同时用，如果同时用需要转义 -->
-    <goods-list :goods="showGoods(BarType)"></goods-list>
+    <scroll class="content">
+      <swiper :banners="banners"></swiper>
+      <Recommend :recommends="recommends"></Recommend>
+      <featureview></featureview>
+      <control-bar :bars="menus" @barindex="BarIndex"></control-bar>
+      <!-- 注意单引号双引号不能同时用，如果同时用需要转义 -->
+      <goods-list :goods="showGoods"></goods-list>
+    </scroll>
   </div>
 </template>
 
@@ -16,6 +18,7 @@
 // 统一导入公共组件
 import NavBar from "@/components/common/tabbar/NavBar.vue";
 import ControlBar from "@/components/content/controlbar/ControlBar.vue";
+import scroll from "@/components/common/scroll/scroll.vue";
 
 // 统一导入子组件
 import Recommend from "@/views/tabbar/childrenhome/recommend.vue";
@@ -32,6 +35,7 @@ export default {
   components: {
     NavBar,
     ControlBar,
+    scroll,
     Recommend,
     swiper,
     featureview,
@@ -84,7 +88,7 @@ export default {
       const page = this.goods[type].page + 1;
       return getHomeGoods(type, page).then((res) => {
         // 问题：如何把result中的list添加到goods中。答案：利用扩展运算符，然后push
-        this.goods[type].list.push(...res.data.data.list)
+        this.goods[type].list.push(...res.data.data.list);
       });
     },
     BarIndex(barindex) {
@@ -100,19 +104,31 @@ export default {
           break;
       }
     },
-    showGoods(type) {
-      return this.goods[type].list;
-    },
   },
 
   // 计算属性，用于传入数据
-  computed: {},
+  computed: {
+    showGoods() {
+      return this.goods[this.BarType].list;
+    },
+  },
 };
 </script>
 
-<style>
+<style scoped>
+#home{
+  /* margin-top:44px; */
+  height: 100vh;
+  position:relative
+}
 .home-nav {
   background-color: var(--color-tint);
   color: white;
+}
+.content{
+  overflow: hidden; 
+  /* position:absolute; */
+  /* 这里高度设置还是有些遗留问题 */
+  height: 690px;
 }
 </style>

@@ -1,12 +1,122 @@
 <template>
-<div id="class">
-    <p>分类内容</p>
+<div class="class">
+    <ul>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+        <li>列表</li>
+    </ul>
 </div>
+
 </template>
 
 <script>
+
+
 export default {
-    name:"Class"
+    name:"Class",
+    data(){
+        return{
+          
+        }
+    }
+
 }
 </script>
 
