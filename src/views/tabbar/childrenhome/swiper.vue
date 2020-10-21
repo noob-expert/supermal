@@ -1,6 +1,6 @@
 <template>
   <div id="sss">
-    <swiper :options="swiperOption" class="swiper-container" ref="mySwiper">
+    <swiper :options="swiperOption" ref="mySwiper">
       <swiper-slide class="swiper-item" v-for="item in banners" :key="item.id">
         <img :src="item.image" alt="" />
       </swiper-slide>
@@ -18,7 +18,8 @@
 
 
 export default {
-  name: "sss",
+  // 存在遗留问题：切换速度过快
+  name: "swiperr",
   props: {
     banners: Array,
   },
@@ -26,7 +27,7 @@ export default {
   },
   data() {
     return {
-    //   slide: [1, 2, 3, 4, 5],
+      // slide: [1, 2, 3, 4, 5],
       //设置属性
       swiperOption: {
         //显示分页
@@ -54,6 +55,9 @@ export default {
 </script>
 
 <style>
+#sss{
+  padding-top: 44px;
+}
 img {
   width: 100%;
   height: 12rem;

@@ -31,7 +31,9 @@ export default {
   },
   methods:{
       btnClick(index){
-          this.currentIndex = index
+          this.currentIndex = index;
+          // console.log(this.currentIndex);
+          this.$emit("barindex",this.currentIndex)
       }
   }
 };
@@ -49,9 +51,10 @@ export default {
   position:sticky;
   left:0;
   top: 44px;
+  z-index: 9;
 }
 .activecolor {
-    color:red;
-    border-bottom:1px solid red
+    color:var(--color-high-text);
+    border-bottom:1px solid var(--color-high-text)
 }
 </style>

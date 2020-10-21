@@ -28,8 +28,9 @@ export default {
   text-align: center;
   box-shadow: 0 2px 1px rgba(1, 9, 9, 0.4);
   width:100%;
-  position: sticky;
-  top:0
+  position: fixed;
+  top:0;
+  z-index: 5;
 }
 .left,
 .right {

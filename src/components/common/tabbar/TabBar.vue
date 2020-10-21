@@ -23,5 +23,6 @@ export default {
     position: fixed;
     bottom:0;
     box-shadow: 0 -2px 1px rgba(1, 9, 9, .4);
+    z-index: 5;
 }
 </style>
