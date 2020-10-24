@@ -3,7 +3,14 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-    <scroll class="content">
+    <!-- probeType属性要加v-bind绑定，不然传递的就永远是一个object -->
+    <scroll
+      class="content"
+      :probeType="3"
+      ref="scrolloutside"
+      @getPosition="CurrentPosition"
+      @pullup="loadMore"
+    >
       <swiper :banners="banners"></swiper>
       <Recommend :recommends="recommends"></Recommend>
       <featureview></featureview>
@@ -11,6 +18,8 @@
       <!-- 注意单引号双引号不能同时用，如果同时用需要转义 -->
       <goods-list :goods="showGoods"></goods-list>
     </scroll>
+    <!-- 监听组件的根元素的原生需要使用.native修饰符 -->
+    <backtop @click.native="backtopClick()" v-show="isShow"></backtop>
   </div>
 </template>
 
@@ -19,6 +28,7 @@
 import NavBar from "@/components/common/tabbar/NavBar.vue";
 import ControlBar from "@/components/content/controlbar/ControlBar.vue";
 import scroll from "@/components/common/scroll/scroll.vue";
+import backtop from "@/components/content/backtop/backtop.vue";
 
 // 统一导入子组件
 import Recommend from "@/views/tabbar/childrenhome/recommend.vue";
@@ -36,6 +46,7 @@ export default {
     NavBar,
     ControlBar,
     scroll,
+    backtop,
     Recommend,
     swiper,
     featureview,
@@ -62,6 +73,7 @@ export default {
         },
       },
       BarType: "pop",
+      isShow: false,
     };
   },
 
@@ -72,6 +84,12 @@ export default {
     this.GetHomeGoods("pop");
     this.GetHomeGoods("new");
     this.GetHomeGoods("sell");
+  },
+
+  mounted(){
+
+    // const refresh=this.debounce(this.$refs.scrolloutside.refresh,500)
+
   },
 
   // 将生命周期相关的函数都放在methods中，然后created()中统一调用
@@ -89,6 +107,7 @@ export default {
       return getHomeGoods(type, page).then((res) => {
         // 问题：如何把result中的list添加到goods中。答案：利用扩展运算符，然后push
         this.goods[type].list.push(...res.data.data.list);
+        this.goods[type].page += 1;
       });
     },
     BarIndex(barindex) {
@@ -104,6 +123,33 @@ export default {
           break;
       }
     },
+    backtopClick() {
+      this.$refs.scrolloutside.scrollTo(0, 0, 500);
+    },
+    CurrentPosition(Y) {
+      this.isShow = -Y > 500;
+    },
+
+    // 监听到上拉加载更多
+    loadMore() {
+      // 加载当前列表的第2页
+      this.GetHomeGoods(this.BarType);
+      // 刷新页面（防止异步加载问题)
+      this.$refs.scrolloutside.scrol.refresh();
+      // 结束当前，继续下一次加载
+      this.$refs.scrolloutside.finishPull();
+    },
+
+    //防抖函数
+    debounce(func, delay) {
+      let timer = null;
+      return function (...args) {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          func.apply(this, args);
+        }, delay);
+      };
+    },
   },
 
   // 计算属性，用于传入数据
@@ -116,19 +162,20 @@ export default {
 </script>
 
 <style scoped>
-#home{
+#home {
   /* margin-top:44px; */
   height: 100vh;
-  position:relative
+  position: relative;
 }
 .home-nav {
   background-color: var(--color-tint);
   color: white;
 }
-.content{
-  overflow: hidden; 
+.content {
+  overflow: hidden;
   /* position:absolute; */
-  /* 这里高度设置还是有些遗留问题 */
-  height: 690px;
+  /* 这里高度设置还是有些遗留问题，同时会出现无法加载下一页的问题 */
+  /* height: calc(100%-93px); 无法点击滚动了*/
+  height: 900px;
 }
 </style>
