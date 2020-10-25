@@ -1,7 +1,7 @@
 <template>
   <div class="goodslistitem">
-      <a :href="item.clientUrl">
-      <img :src="item.show.img" alt="" @load="imgload" @click="imgClick">
+      <a>
+      <img :src="item.show.img" alt="" @load="imgload" @click="imgClick(item)">
       <p>{{item.title}}<br>
       <span>{{item.price | showPrice}}</span></p>
       </a>
@@ -9,7 +9,6 @@
 
   </select>
 </template>
-
 
 <script>
 export default {
@@ -30,8 +29,8 @@ export default {
             this.$bus.$emit("imgload")
         },
         // 点击切换到详情页
-        imgClick(){
-            this.$router.push("/details"+)
+        imgClick(item){
+            this.$router.push("/details/"+item.iid)
         }
     }
 }

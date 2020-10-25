@@ -102,7 +102,7 @@ export default {
     this.GetHomeGoods("sell");
   },
 activated(){
-console.log("activated");
+// console.log("activated");
 this.$refs.scrolloutside.scrollTo(0,this.saveY)
 },
 deactivated(){

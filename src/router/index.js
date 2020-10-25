@@ -9,7 +9,7 @@ const Home=()=>import("@/views/tabbar/home.vue")
 const Class=()=>import("@/views/tabbar/class")
 const Cart=()=>import("@/views/tabbar/cart")
 const Profile=()=>import("@/views/tabbar/profile")
-const Detail=()=>import("@/views/tabbar/details")
+const Detail=()=>import("@/views/details/details")
 
 
 const routes=[
@@ -34,7 +34,7 @@ const routes=[
         component:Profile
     },
     {
-        path:"/detail/:id",
+        path:"/details/:id",
         component:Detail
     }
 ]
