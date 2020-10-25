@@ -3,6 +3,13 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
+    <control-bar
+      :bars="menus"
+      @barindex="BarIndex"
+      v-show="arriveTop"
+      :class="{ active: arriveTop }"
+      ref="controlbar2"
+    ></control-bar>
     <!-- probeType属性要加v-bind绑定，不然传递的就永远是一个object -->
     <scroll
       class="content"
@@ -11,10 +18,14 @@
       @getPosition="CurrentPosition"
       @pullup="loadMore"
     >
-      <swiper :banners="banners"></swiper>
+      <swiper :banners="banners" @swiperImgLoad="swiperLoad"></swiper>
       <Recommend :recommends="recommends"></Recommend>
       <featureview></featureview>
-      <control-bar :bars="menus" @barindex="BarIndex"></control-bar>
+      <control-bar
+        :bars="menus"
+        @barindex="BarIndex"
+        ref="controlbar1"
+      ></control-bar>
       <!-- 注意单引号双引号不能同时用，如果同时用需要转义 -->
       <goods-list :goods="showGoods"></goods-list>
     </scroll>
@@ -29,7 +40,7 @@ import NavBar from "@/components/common/tabbar/NavBar.vue";
 import ControlBar from "@/components/content/controlbar/ControlBar.vue";
 import scroll from "@/components/common/scroll/scroll.vue";
 import backtop from "@/components/content/backtop/backtop.vue";
-import {debounce} from "@/components/common/tool/debounce.js"
+import { debounce } from "@/components/common/tool/debounce.js";
 
 // 统一导入子组件
 import Recommend from "@/views/tabbar/childrenhome/recommend.vue";
@@ -75,6 +86,10 @@ export default {
       },
       BarType: "pop",
       isShow: false,
+      // 处理control-bar吸顶效果参数
+      controlbarTop: 0,
+      arriveTop: false,
+      saveY:0
     };
   },
 
@@ -86,20 +101,30 @@ export default {
     this.GetHomeGoods("new");
     this.GetHomeGoods("sell");
   },
-
-  mounted(){
+activated(){
+console.log("activated");
+this.$refs.scrolloutside.scrollTo(0,this.saveY)
+},
+deactivated(){
+// console.log("deactivated");
+// 方法二：也可以在CurrentPosition(Y)中设置跟踪saveY的值
+this.saveY=this.$refs.scrolloutside.getScrollY();
+// console.log(this.saveY);
+},
+destroyed(){
+console.log("destroyed");
+},
+  mounted() {
     // 增加防抖函数处理
-    const refresh=debounce(this.$refs.scrolloutside.refresh,50)
+    const refresh = debounce(this.$refs.scrolloutside.refresh, 50);
     // 监听事件总线的执行事件；注意不要放在created生命周期函数中，否则有时会返错访问不到
-    this.$bus.$on("imgload",()=>{
+    this.$bus.$on("imgload", () => {
       // 每次监听到后，执行一次刷新
-    // this.$refs.scrolloutside.refresh()
-    refresh()
-    })
-
+      // this.$refs.scrolloutside.refresh()
+      refresh();
+    });
 
     // const refresh=this.debounce(this.$refs.scrolloutside.refresh,500)
-
   },
 
   // 将生命周期相关的函数都放在methods中，然后created()中统一调用
@@ -132,12 +157,21 @@ export default {
           this.BarType = "sell";
           break;
       }
+      // 处理2个吸顶效果的index保持一致问题
+      this.$refs.controlbar2.currentIndex=barindex;
+      this.$refs.controlbar1.currentIndex=barindex;
     },
     backtopClick() {
       this.$refs.scrolloutside.scrollTo(0, 0, 500);
     },
     CurrentPosition(Y) {
+      // 判断backtop是否显示
       this.isShow = -Y > 500;
+      // 判断control bar是否吸顶,这里要处理顶部Nav-bar的高度44px？
+      this.arriveTop = -Y > this.controlbarTop  ? true : false;
+
+      // 切换页面时记录当前的Y值
+      // this.saveY=Y
     },
 
     // 监听到上拉加载更多
@@ -148,8 +182,13 @@ export default {
       this.$refs.scrolloutside.refresh();
       // 结束当前，继续下一次加载更多
       this.$refs.scrolloutside.finishPull();
-    }
+    },
 
+    swiperLoad() {
+      // control-bar offsetTop的值
+      // console.log(this.$refs.controlbar.$el.offsetTop);
+      this.controlbarTop = this.$refs.controlbar1.$el.offsetTop;
+    },
   },
 
   // 计算属性，用于传入数据
@@ -177,5 +216,12 @@ export default {
   /* 这里高度设置还是有些遗留问题，同时会出现无法加载下一页的问题 */
   /* height: calc(100%-93px); 无法点击滚动了*/
   height: 900px;
+}
+
+/* 吸顶效果 */
+.active {
+  position: relative;
+  top: 44px;
+  z-index: 3;
 }
 </style>

@@ -2,7 +2,7 @@
   <div id="sss">
     <swiper :options="swiperOption" ref="mySwiper">
       <swiper-slide class="swiper-item" v-for="item in banners" :key="item.id">
-        <img :src="item.image" alt="" />
+        <img :src="item.image" alt="" @load="swiperImgLoad" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
       <!-- 分页 -->
@@ -15,16 +15,13 @@
 </template>
 
 <script>
-
-
 export default {
   // 存在遗留问题：切换速度过快
   name: "swiperr",
   props: {
     banners: Array,
   },
-  components: {
-  },
+  components: {},
   data() {
     return {
       // slide: [1, 2, 3, 4, 5],
@@ -49,13 +46,24 @@ export default {
         //开启鼠标滚轮控制Swiper切换
         mousewheel: true,
       },
+      // 控制swiperImgLoad只回调一次
+      isLoad: true,
     };
+  },
+  methods: {
+    // 用于检测轮播图加载完后的事件；为了使controlBar的offsetTop值更加精确
+    swiperImgLoad() {
+      if (this.isLoad) {
+        this.$emit("swiperImgLoad");
+        this.isLoad = false;
+      }
+    },
   },
 };
 </script>
 
 <style>
-#sss{
+#sss {
   padding-top: 44px;
 }
 img {

@@ -40,11 +40,11 @@ export default {
       this.$emit("getPosition", position.y);
     });
 
-    this.scrol.scrollTo(0, 0);
+    this.scrol.scrollTo(0,0);
 
-    this.scrol.on("pullingUp",()=>{
-      this.$emit("pullup")
-    })
+    this.scrol.on("pullingUp", () => {
+      this.$emit("pullup");
+    });
   },
   methods: {
     // getPosition(){
@@ -54,17 +54,22 @@ export default {
     // },
     scrollTo(x, y, time = 300) {
       // 逻辑与判断this.scrol是否存在，如果为null直接返回
-      this.scrol&&this.scrol.scrollTo(x, y, time);
+      this.scrol && this.scrol.scrollTo(x, y, time);
     },
-    finishPull(){
-      this.scrol&&this.scrol.finishPullUp()
+    finishPull() {
+      this.scrol && this.scrol.finishPullUp();
     },
     // 刷新操作
-    refresh(){
-      this.scrol&&this.scrol.refresh()
+    refresh() {
+      this.scrol && this.scrol.refresh();
       // console.log("----");
+    },
+
+    // 获取srollY
+    getScrollY(){
+      return this.scrol ? this.scrol.y : 0
     }
-  }
+  },
 };
 </script>
 
