@@ -53,10 +53,16 @@ export default {
     //   })
     // },
     scrollTo(x, y, time = 300) {
-      this.scrol.scrollTo(x, y, time);
+      // 逻辑与判断this.scrol是否存在，如果为null直接返回
+      this.scrol&&this.scrol.scrollTo(x, y, time);
     },
     finishPull(){
-      this.scrol.finishPullUp()
+      this.scrol&&this.scrol.finishPullUp()
+    },
+    // 刷新操作
+    refresh(){
+      this.scrol&&this.scrol.refresh()
+      // console.log("----");
     }
   }
 };

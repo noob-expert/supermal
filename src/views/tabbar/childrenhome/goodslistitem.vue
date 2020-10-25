@@ -1,12 +1,15 @@
 <template>
   <div class="goodslistitem">
       <a :href="item.clientUrl">
-      <img :src="item.show.img" alt="">
+      <img :src="item.show.img" alt="" @load="imgload">
       <p>{{item.title}}<br>
       <span>{{item.price | showPrice}}</span></p>
       </a>
   </div>
+
+  </select>
 </template>
+
 
 <script>
 export default {
@@ -18,6 +21,13 @@ export default {
         showPrice(price){
             const nprice=parseFloat(price);
             return "€"+nprice.toFixed(2)
+        }
+    },
+    methods:{
+        imgload(){
+            // console.log("----");
+            // 发送事件到事件总线
+            this.$bus.$emit("imgload")
         }
     }
 }

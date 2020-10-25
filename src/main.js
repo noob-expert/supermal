@@ -7,6 +7,9 @@ import "swiper/dist/css/swiper.css"
 
 Vue.use(VueAwesomeSwiper);
 
+// 事件总线的添加，用于解决滚动区域BUG问题
+Vue.prototype.$bus=new Vue();
+
 // VueCLI3版本
 new Vue({
   router:Router, //我的天，这里如果使用ES6增强写法的话，千万记得一定一定一定要import router!!!!

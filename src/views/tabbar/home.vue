@@ -29,6 +29,7 @@ import NavBar from "@/components/common/tabbar/NavBar.vue";
 import ControlBar from "@/components/content/controlbar/ControlBar.vue";
 import scroll from "@/components/common/scroll/scroll.vue";
 import backtop from "@/components/content/backtop/backtop.vue";
+import {debounce} from "@/components/common/tool/debounce.js"
 
 // 统一导入子组件
 import Recommend from "@/views/tabbar/childrenhome/recommend.vue";
@@ -87,6 +88,15 @@ export default {
   },
 
   mounted(){
+    // 增加防抖函数处理
+    const refresh=debounce(this.$refs.scrolloutside.refresh,50)
+    // 监听事件总线的执行事件；注意不要放在created生命周期函数中，否则有时会返错访问不到
+    this.$bus.$on("imgload",()=>{
+      // 每次监听到后，执行一次刷新
+    // this.$refs.scrolloutside.refresh()
+    refresh()
+    })
+
 
     // const refresh=this.debounce(this.$refs.scrolloutside.refresh,500)
 
@@ -134,22 +144,12 @@ export default {
     loadMore() {
       // 加载当前列表的第2页
       this.GetHomeGoods(this.BarType);
-      // 刷新页面（防止异步加载问题)
-      this.$refs.scrolloutside.scrol.refresh();
-      // 结束当前，继续下一次加载
+      // 刷新页面（防止异步加载问题)--在第一加载时可以通过事件总线处解决
+      this.$refs.scrolloutside.refresh();
+      // 结束当前，继续下一次加载更多
       this.$refs.scrolloutside.finishPull();
-    },
+    }
 
-    //防抖函数
-    debounce(func, delay) {
-      let timer = null;
-      return function (...args) {
-        if (timer) clearTimeout(timer);
-        timer = setTimeout(() => {
-          func.apply(this, args);
-        }, delay);
-      };
-    },
   },
 
   // 计算属性，用于传入数据
