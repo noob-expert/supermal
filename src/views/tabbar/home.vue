@@ -112,7 +112,7 @@ this.saveY=this.$refs.scrolloutside.getScrollY();
 // console.log(this.saveY);
 },
 destroyed(){
-console.log("destroyed");
+// console.log("destroyed");
 },
   mounted() {
     // 增加防抖函数处理

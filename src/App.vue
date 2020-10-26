@@ -3,7 +3,7 @@
     <!-- <router-link to="/home">首页</router-link> -->
     <!-- <router-view></router-view> -->
     <main-tab-bar></main-tab-bar>
-    <keep-alive>
+    <keep-alive exclude="Details">
       <router-view></router-view>
     </keep-alive>
   </div>
