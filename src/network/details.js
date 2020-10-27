@@ -25,7 +25,7 @@ export class Goods {
     }
 }
 
-export class Shop {
+export class Shops {
     // res.result.shopInfo 删除
     constructor (shopInfo){
         this.logo = shopInfo.shopLogo;

@@ -13,6 +13,8 @@
       </div>
     </nav-bar>
     <swiper-image :topImage="topImages"></swiper-image>
+    <goods-info :goods="goods"></goods-info>
+    <shops-info :shops="shops"></shops-info>
   </div>
 </template>
 
@@ -20,10 +22,12 @@
 // 获取子组件
 import NavBar from "@/components/common/tabbar/NavBar.vue";
 import DetailsNavBar from "./DetailsNavBar";
-import SwiperImage from "./swiperimage"
+import SwiperImage from "./swiperimage";
+import GoodsInfo from "./Goodsinfo";
+import ShopsInfo from "./Shopinfo";
 
 // 获取请求数据
-import { getDetail } from "@/network/details.js";
+import { getDetail, Goods, Shops } from "@/network/details.js";
 
 export default {
   name: "Details",
@@ -31,28 +35,43 @@ export default {
     return {
       title: ["商品", "参数", "评论", "推荐"],
       id: null,
-      topImages:[],
-      goods:{},
-      shopinfo:{}
+      topImages: [],
+      goods: {},
+      shops: {},
     };
   },
   components: {
     NavBar,
     DetailsNavBar,
-    SwiperImage
+    SwiperImage,
+    GoodsInfo,
+    ShopsInfo,
   },
   created() {
+    // 保存传入的id
     this.id = this.$route.params.id;
-    console.log(this.id);
-    getDetail(this.id).then(res=>{
-      this.topImages=res.data.result.itemInfo.topImages;
-      console.log(this.topImages)
-      // console.log(res);
-    })
+    // console.log(this.id);
+    // 获取轮播图数据
+    getDetail(this.id).then((res) => {
+      this.topImages = res.data.result.itemInfo.topImages;
+      // console.log(this.topImages)
+      console.log(res);
+      // 获取商品信息
+      this.goods = new Goods(
+        res.data.result.itemInfo,
+        res.data.result.columns,
+        res.data.result.shopInfo.services
+      );
+      console.log(this.goods);
+      // 获取商家店铺信息
+      this.shops = new Shops(res.data.result.shopInfo);
+      console.log(this.shops);
+      // this.shops=new Shops()
+    });
   },
   methods: {
     backClick() {
-      //   因为跳转时使用的是push，所以可以使用go来返回
+      //   因为跳转时使用的是push，所以可以使用go/forward来返回
       this.$router.go(-1);
     },
   },

@@ -1,8 +1,12 @@
 <template>
   <div id="sss">
     <swiper :options="swiperOption" ref="mySwiper">
-      <swiper-slide class="swiper-slide" v-for="(item,index) in topImage" :key="index">
-        <img :src="item" alt="" @load="swiperImgLoad" />
+      <swiper-slide
+        class="swiper-slide"
+        v-for="(item, index) in topImage"
+        :key="index"
+      >
+        <img :src="item" alt="" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
       <!-- 分页 -->
@@ -21,9 +25,7 @@ export default {
   props: {
     topImage: Array,
   },
-  components: {
-
-  },
+  components: {},
   data() {
     return {
       // slide: [1, 2, 3, 4, 5],
@@ -52,8 +54,7 @@ export default {
       isLoad: true,
     };
   },
-  methods: {
-  },
+  methods: {},
 };
 </script>
 
@@ -63,12 +64,12 @@ export default {
 }
 img {
   width: 100%;
-  height: 16rem;
+  height: 22rem;
   background-size: 100% 100%;
 }
 .swiper-slide {
   width: 100%;
-  height: 16rem;
+  height: 22rem;
   line-height: 12rem;
   font-size: 0.3rem;
   text-align: center;
