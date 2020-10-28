@@ -12,7 +12,6 @@ export function getDetail(iid) {
 
 // ES6中新建类语法,整合商品数据/商家信息
 export class Goods {
-    // res.result.itemInfo,res.result.columns,res.result.shopInfo.services 10.26日删除
     constructor(itemInfo, columns, services) {
         this.title = itemInfo.title;
         this.desc = itemInfo.desc;
@@ -26,7 +25,6 @@ export class Goods {
 }
 
 export class Shops {
-    // res.result.shopInfo 删除
     constructor (shopInfo){
         this.logo = shopInfo.shopLogo;
         this.name = shopInfo.name;
@@ -37,3 +35,14 @@ export class Shops {
     }
 }
 
+// 商品参数信息
+export class GoodsParam{
+    // info=data.result.itemParams.info
+    // rule=data.result.itemParams.rule
+    constructor (info,rule){
+        // images可能没有值(某些商品有值，某些没有)
+        this.image=info.images?info.images[0]:"";
+        this.infos=info.set;
+        this.sizes=rule.tables
+    }
+}

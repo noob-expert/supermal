@@ -114,7 +114,7 @@ this.saveY=this.$refs.scrolloutside.getScrollY();
 destroyed(){
 // console.log("destroyed");
 },
-  mounted() {
+mounted() {
     // 增加防抖函数处理
     const refresh = debounce(this.$refs.scrolloutside.refresh, 50);
     // 监听事件总线的执行事件；注意不要放在created生命周期函数中，否则有时会返错访问不到

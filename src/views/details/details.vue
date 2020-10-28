@@ -1,6 +1,6 @@
 <template>
   <div class="details">
-    <nav-bar>
+    <nav-bar class="nav-bar">
       <img
         src="~@/assets/img/details/back.png"
         alt="back"
@@ -12,22 +12,31 @@
         <details-nav-bar :title="title"></details-nav-bar>
       </div>
     </nav-bar>
-    <swiper-image :topImage="topImages"></swiper-image>
-    <goods-info :goods="goods"></goods-info>
-    <shops-info :shops="shops"></shops-info>
+    <scroll class="content" :probeType="3" ref="scrolloutside">
+      <swiper-image :topImage="topImages"></swiper-image>
+      <goods-info :goods="goods"></goods-info>
+      <shops-info :shops="shops"></shops-info>
+      <details-info :details-info="detailInfo" @imgLoad="infoImgLoad"></details-info>
+      <goodsparam :goodsparam="goodsparam"></goodsparam>
+    </scroll>
   </div>
 </template>
 
 <script>
+// 获取公共组件
+import scroll from "@/components/common/scroll/scroll";
+
 // 获取子组件
 import NavBar from "@/components/common/tabbar/NavBar.vue";
 import DetailsNavBar from "./DetailsNavBar";
 import SwiperImage from "./swiperimage";
 import GoodsInfo from "./Goodsinfo";
 import ShopsInfo from "./Shopinfo";
+import DetailsInfo from "./detailsinfo";
+import goodsparam from "./Goodsparam"
 
 // 获取请求数据
-import { getDetail, Goods, Shops } from "@/network/details.js";
+import { getDetail, Goods, Shops,GoodsParam } from "@/network/details.js";
 
 export default {
   name: "Details",
@@ -38,14 +47,19 @@ export default {
       topImages: [],
       goods: {},
       shops: {},
+      detailInfo: {},
+      goodsparam: {}
     };
   },
   components: {
+    scroll,
     NavBar,
     DetailsNavBar,
     SwiperImage,
     GoodsInfo,
     ShopsInfo,
+    DetailsInfo,
+    goodsparam
   },
   created() {
     // 保存传入的id
@@ -67,21 +81,50 @@ export default {
       this.shops = new Shops(res.data.result.shopInfo);
       console.log(this.shops);
       // this.shops=new Shops()
+      // 获取商品详细信息
+      this.detailInfo = res.data.result.detailInfo;
+      console.log(this.detailInfo);
+      // 获取商品参数信息
+      this.goodsparam=new GoodsParam(res.data.result.itemParams.info,res.data.result.itemParams.rule)
+      console.log(this.goodsparam);
     });
+  },
+  mounted(){
+    
   },
   methods: {
     backClick() {
       //   因为跳转时使用的是push，所以可以使用go/forward来返回
       this.$router.go(-1);
     },
+    infoImgLoad(){
+      this.$refs.scrolloutside.refresh();
+    }
+
   },
 };
 </script>
 
 <style scoped>
+.nav-bar {
+  position: relative;
+  z-index: 9;
+  background: #fff;
+}
 .backimg {
   width: 25px;
   height: 25px;
   margin-top: 10px;
+}
+.details {
+  position: relative;
+  height: 100vh;
+  z-index: 10;
+  background: #fff;
+}
+.content {
+  /* margin-top:44px; */
+  overflow: hidden;
+  height: 660px;
 }
 </style>
