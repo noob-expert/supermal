@@ -41,12 +41,13 @@ import ControlBar from "@/components/content/controlbar/ControlBar.vue";
 import scroll from "@/components/common/scroll/scroll.vue";
 import backtop from "@/components/content/backtop/backtop.vue";
 import { debounce } from "@/components/common/tool/debounce.js";
+import GoodsList from "@/components/content/goods/goodslist.vue";
 
 // 统一导入子组件
 import Recommend from "@/views/tabbar/childrenhome/recommend.vue";
 import swiper from "@/views/tabbar/childrenhome/swiper.vue";
 import featureview from "@/views/tabbar/childrenhome/featureview.vue";
-import GoodsList from "@/views/tabbar/childrenhome/goodslist.vue";
+
 
 // 统一导入网络接口
 import { getHomeMultidata } from "@/network/home.js";
@@ -96,7 +97,6 @@ export default {
   created() {
     // 请求多个数据，这里记得要加this，否则会返错未定义
     this.GetHomeMultidata();
-
     this.GetHomeGoods("pop");
     this.GetHomeGoods("new");
     this.GetHomeGoods("sell");
@@ -110,6 +110,8 @@ deactivated(){
 // 方法二：也可以在CurrentPosition(Y)中设置跟踪saveY的值
 this.saveY=this.$refs.scrolloutside.getScrollY();
 // console.log(this.saveY);
+// 离开时取消事件监听,防止详情页中的影响
+this.$bus.$off("imgload");
 },
 destroyed(){
 // console.log("destroyed");

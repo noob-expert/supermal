@@ -10,6 +10,16 @@ export function getDetail(iid) {
     })
 }
 
+
+// 详情商品推荐信息接口
+export function getRecommend() {
+    return request({
+        url: "/recommend",
+    })
+}
+
+
+
 // ES6中新建类语法,整合商品数据/商家信息
 export class Goods {
     constructor(itemInfo, columns, services) {

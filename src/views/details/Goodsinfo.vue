@@ -9,7 +9,7 @@
       <div class="discount">{{ goods.discount }}</div>
     </div>
     <!-- 这里添加v-if条件判断是为了防止异步加载过快导致的返错无法找到0问题 -->
-    <div class="columns" v-if="goods.columns">
+    <div class="columns" v-if="goods.columns && goods.services">
       <div>{{ goods.columns[0] }}</div>
       <div>{{ goods.columns[1] }}</div>
       <div>{{ goods.services[3].name }}</div>
