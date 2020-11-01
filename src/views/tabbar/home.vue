@@ -90,7 +90,9 @@ export default {
       // 处理control-bar吸顶效果参数
       controlbarTop: 0,
       arriveTop: false,
-      saveY:0
+      saveY:0,
+      // 防抖函数定义
+      listener:null
     };
   },
 
@@ -111,7 +113,7 @@ deactivated(){
 this.saveY=this.$refs.scrolloutside.getScrollY();
 // console.log(this.saveY);
 // 离开时取消事件监听,防止详情页中的影响
-this.$bus.$off("imgload");
+this.$bus.$off("imgload",this.listener);
 },
 destroyed(){
 // console.log("destroyed");
@@ -119,12 +121,12 @@ destroyed(){
 mounted() {
     // 增加防抖函数处理
     const refresh = debounce(this.$refs.scrolloutside.refresh, 50);
+
+    this.listener=()=>{
+      refresh()
+    }
     // 监听事件总线的执行事件；注意不要放在created生命周期函数中，否则有时会返错访问不到
-    this.$bus.$on("imgload", () => {
-      // 每次监听到后，执行一次刷新
-      // this.$refs.scrolloutside.refresh()
-      refresh();
-    });
+    this.$bus.$on("imgload", this.listener);
 
     // const refresh=this.debounce(this.$refs.scrolloutside.refresh,500)
   },

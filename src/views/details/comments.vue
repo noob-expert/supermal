@@ -5,7 +5,7 @@
       <p>更多</p>
     </header>
     <div
-      v-if="comments.cRate !== 0"
+     
       v-for="(item, index) in comments.list"
       :key="index"
     >
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { formatDate } from "@/components/common/tool/timestamp";
+
 export default {
   name: "comments",
   props: {
@@ -39,19 +41,10 @@ export default {
     // console.log(this.comments.cRate);
   },
   filters: {
-    showDate(datec) {
-      var date = new Date(datec);
-      const Y = date.getFullYear() + "-";
-      const M =
-        (date.getMonth() + 1 < 10
-          ? "0" + (date.getMonth() + 1)
-          : date.getMonth() + 1) + "-";
-      const D = date.getDate() + " ";
-      const h = date.getHours() + ":";
-      const m = date.getMinutes() + ":";
-      const s = date.getSeconds();
-      return Y + M + D ;
-    },
+    showDate(timestamp){
+      // console.log(timestamp); 这里的时间戳为10位，要乘以1000
+      return formatDate(timestamp*1000)
+    }
   },
 };
 </script>
