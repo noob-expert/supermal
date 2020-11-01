@@ -13,7 +13,7 @@
       <div>收藏</div>
     </div>
     <div class="info">
-    <div class="cart">
+    <div class="cart" @click="cartClick">
       <p>加入购物车</p>
     </div>
     <div class="purchase">
@@ -27,6 +27,11 @@
 export default {
   name: "BottomBar",
   props: {},
+  methods:{
+      cartClick(){
+          this.$emit("cartClick")
+      }
+  }
 };
 </script>
 

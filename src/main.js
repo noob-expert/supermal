@@ -3,7 +3,8 @@ import Vue from "vue"
 import App from './App.vue'
 import Router from "./router/index"
 import VueAwesomeSwiper from "vue-awesome-swiper";
-import "swiper/dist/css/swiper.css"
+import "swiper/dist/css/swiper.css";
+import store from "./store/index.js"
 
 Vue.use(VueAwesomeSwiper);
 
@@ -14,6 +15,7 @@ Vue.prototype.$bus=new Vue();
 new Vue({
   router:Router, //我的天，这里如果使用ES6增强写法的话，千万记得一定一定一定要import router!!!!
   render: h => h(App),
+  store:store
 }).$mount('#app')
 
 // VueCLI4版本

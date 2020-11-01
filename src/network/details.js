@@ -56,3 +56,15 @@ export class GoodsParam{
         this.sizes=rule.tables
     }
 }
+
+
+// 加入购物车的信息
+    export class CartGoods {
+    constructor(result,itemInfo) {
+        this.id= result.iid
+        this.title = itemInfo.title;
+        this.desc = itemInfo.desc;
+        this.newPrice = itemInfo.lowNowPrice;
+        this.image = itemInfo.topImages[0];
+    }
+}

@@ -36,7 +36,7 @@
       <comments :comments="comment" ref="commentslocation"></comments>
       <recommends :goods="recommendsinfo" ref="recommendslocation"></recommends>
     </scroll>
-    <bottom-bar></bottom-bar>
+    <bottom-bar @cartClick="cartclick"></bottom-bar>
     <backtop @click.native="backtopClick()" v-show="isShow"></backtop>
   </div>
 </template>
@@ -45,9 +45,9 @@
 // 获取公共组件
 import scroll from "@/components/common/scroll/scroll";
 import { debounce } from "@/components/common/tool/debounce.js";
-import BottomBar from "@/components/common/botbar/BottomBar.vue"
-import backtop from "@/components/content/backtop/backtop"
-import {BackTopMixin} from "@/components/common/tool/mixin.js"
+import BottomBar from "@/components/common/botbar/BottomBar.vue";
+import backtop from "@/components/content/backtop/backtop";
+import { BackTopMixin } from "@/components/common/tool/mixin.js";
 
 // 获取子组件
 import NavBar from "@/components/common/tabbar/NavBar.vue";
@@ -60,9 +60,6 @@ import goodsparam from "./Goodsparam";
 import comments from "./comments";
 import recommends from "@/components/content/goods/goodslist.vue";
 
-
-
-
 // 获取请求数据
 import {
   getDetail,
@@ -70,6 +67,7 @@ import {
   Goods,
   Shops,
   GoodsParam,
+  CartGoods
 } from "@/network/details.js";
 
 export default {
@@ -86,9 +84,10 @@ export default {
       comment: {},
       recommendsinfo: [],
       itemlocation: null,
+      CartGoods:{}
     };
   },
-  mixins:[BackTopMixin],
+  mixins: [BackTopMixin],
   components: {
     scroll,
     BottomBar,
@@ -102,14 +101,13 @@ export default {
     goodsparam,
     comments,
     recommends,
-
   },
   created() {
     // 保存传入的id
     this.id = this.$route.params.id;
     // console.log(this.id);
-    // 获取轮播图数据
     getDetail(this.id).then((res) => {
+          // 获取轮播图数据
       this.topImages = res.data.result.itemInfo.topImages;
       // 获取商品信息
       this.goods = new Goods(
@@ -129,7 +127,11 @@ export default {
       );
       // 获取评论信息
       this.comment = res.data.result.rate;
-      // 获取推荐信息
+      // 获取添加到购物车的信息
+      this.CartGoods=new CartGoods(
+        res.data,
+        res.data.result.itemInfo
+      )
     });
 
     // 获取推荐数据
@@ -144,7 +146,7 @@ export default {
       this.itemlocation.push(this.$refs.goodsparamlocation.$el.offsetTop);
       this.itemlocation.push(this.$refs.commentslocation.$el.offsetTop);
       this.itemlocation.push(this.$refs.recommendslocation.$el.offsetTop);
-      this.itemlocation.push(Number.MAX_VALUE)//Number的最大值
+      this.itemlocation.push(Number.MAX_VALUE); //Number的最大值
     }, 100);
   },
 
@@ -199,16 +201,28 @@ export default {
       //   this.$refs.detailnavbar.currentIndex = 3;
       // }
       // 方法二。 复杂条件的判断与优化
-      for(let i=0;i<this.itemlocation.length-1;i++){
-        if(-positionY>this.itemlocation[i] && -positionY<this.itemlocation[i+1]){
-          this.$refs.detailnavbar.currentIndex=i
+      for (let i = 0; i < this.itemlocation.length - 1; i++) {
+        if (
+          -positionY > this.itemlocation[i] &&
+          -positionY < this.itemlocation[i + 1]
+        ) {
+          this.$refs.detailnavbar.currentIndex = i;
         }
       }
 
       // 判断什么时候backtop显示
-      this.isShow= -positionY > 1000 
+      this.isShow = -positionY > 1000;
     },
+      // 点击购物车
+    cartclick() {
+      // this.$store.commit("addCart",this.CartGoods)
+    this.$store.dispatch('addGoods',this.CartGoods)
+    console.log(this.$store.state.goods); 
   },
+  },
+  
+
+
 };
 </script>
 
