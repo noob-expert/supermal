@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import getters from "./getters"
+
 Vue.use(Vuex);
 
 const store=new Vuex.Store({
@@ -8,6 +10,7 @@ const store=new Vuex.Store({
         count:1000,
         goods:[]
     },
+    getters,
     mutations:{
         // 方法一
         // 默认属性是state
@@ -30,6 +33,7 @@ const store=new Vuex.Store({
                 oldProduct.count += 1
             }else{
                 payload.count=1
+                payload.checked=true
                 context.state.goods.push(payload)
             }
         }

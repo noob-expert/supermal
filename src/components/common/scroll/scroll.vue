@@ -45,6 +45,7 @@ export default {
     this.scrol.on("pullingUp", () => {
       this.$emit("pullup");
     });
+
   },
   methods: {
     // getPosition(){

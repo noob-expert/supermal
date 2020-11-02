@@ -57,7 +57,6 @@ export class GoodsParam{
     }
 }
 
-
 // 加入购物车的信息
     export class CartGoods {
     constructor(result,itemInfo) {

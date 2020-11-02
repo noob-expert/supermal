@@ -18,7 +18,7 @@ export default {
   filters: {
     showPrice(price) {
       const nprice = parseFloat(price);
-      return "€" + nprice.toFixed(2);
+      return "￥" + nprice.toFixed(2);
     },
   },
   methods: {
