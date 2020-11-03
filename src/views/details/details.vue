@@ -83,7 +83,7 @@ export default {
       goodsparam: {},
       comment: {},
       recommendsinfo: [],
-      itemlocation: null,
+      itemlocation: Function,
       CartGoods:{}
     };
   },

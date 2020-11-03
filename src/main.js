@@ -5,6 +5,10 @@ import Router from "./router/index"
 import VueAwesomeSwiper from "vue-awesome-swiper";
 import "swiper/dist/css/swiper.css";
 import store from "./store/index.js"
+import toast from "@/components/common/toast/Toast.vue"
+
+// 安装toast插件
+Vue.use(toast)
 
 Vue.use(VueAwesomeSwiper);
 

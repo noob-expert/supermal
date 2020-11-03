@@ -1,7 +1,10 @@
 <template>
   <div id="sum">
     <div class="info">
-      <buttoncheck :isActive="isSelectAll" @click.native="allcheckClick()"></buttoncheck>
+      <buttoncheck
+        :isActive="isSelectAll"
+        @click.native="allcheckClick()"
+      ></buttoncheck>
       <p>全选</p>
       <p class="sumprice">合计:{{ TotalPrice | showPrice }}</p>
     </div>
@@ -18,18 +21,22 @@ export default {
   components: {
     buttoncheck,
   },
+  data() {
+    return {};
+  },
   computed: {
     ...mapGetters({
       TotalItem: "getItem",
       TotalPrice: "getTotalPrice",
       checkLength: "getCount",
+      getCheckAll:"getCheckAll"
     }),
     isSelectAll() {
       // niubility，这里学到了
       if (this.TotalItem.length === 0) {
         return false;
       } else {
-        return !this.TotalItem.find((item) => !item.checked);
+        return !(this.TotalItem.filter((item) => !item.checked).length);
       }
     },
   },
@@ -39,18 +46,20 @@ export default {
       return "￥" + parseFloat(price).toFixed(2);
     },
   },
-  methods:{
-      allcheckClick(){
-          console.log("---");
-          if(this.isSelectAll){ //全部选中
-              for(let i of this.TotalItem){
-                  i.checked=false
-              }
-          }else{ //未全部选中
-              this.TotalItem.forEach(item=>item.checked=true)
-          }
+  methods: {
+    allcheckClick() {
+      console.log(this.checkLength);
+      if (this.isSelectAll) {
+        //全部选中
+        for (let i of this.TotalItem) {
+          i.checked = false;
+        }
+      } else {
+        //未全部选中
+        this.TotalItem.forEach((item) => (item.checked = true));
       }
-  }
+    },
+  },
 };
 </script>
 

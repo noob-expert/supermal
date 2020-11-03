@@ -1,20 +1,24 @@
 <template>
-<div class="button" :class="{active:isActive}"></div>
+<div class="buttoncheck" :class="{active:isActive}"></div>
 </template>
 
 <script>
 export default {
-    name:'button',
+    name:'buttoncheck',
     props:{
         isActive:{
-            type:Boolean
-        }
+          type:Boolean,
+          default(){
+            return false
+          }
     }
+    }
+
 }
 </script>
 
 <style scoped>
-.button {
+.buttoncheck {
   position: relative;
   top: 50%;
   transform: translateY(-50%);

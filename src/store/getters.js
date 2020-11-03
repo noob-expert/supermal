@@ -16,7 +16,7 @@ export default{
         return state.goods.filter(item=>{
             return item.checked
         }).reduce((preValue,item)=>{
-            return preValue+ (item.count*item.newprice)
+            return preValue+item.count*parseFloat(item.newPrice)
         },0)
     },
 
@@ -25,5 +25,9 @@ export default{
         return state.goods.filter(item=>{
             return item.checked
         }).length
+    },
+
+    getCheckAll(state){
+        return !(state.goods.filter((item) => !item.checked).length)
     }
 }
