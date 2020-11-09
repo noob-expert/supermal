@@ -27,28 +27,29 @@ export default {
       // slide: [1, 2, 3, 4, 5],
       //设置属性
       swiperOption: {
-        //显示分页
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true, //允许分页点击跳转
-        },
-        //设置点击箭头
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-        //自动轮播
-        autoplay: {
-          delay: 2000,
-        },
-        //开启循环模式
+        autoplay: 2000, //逗号结尾
+        /*自动切换的时间间隔(单位ms),不写不自动切换
+        类型:数字 默认是0*/
+        initialSlide: 0,
+        /*设定初始化时的slide索引(默认显示第几张)  类型:数字   索引从0开始*/
+        direction: "horizontal",
+        /*滑动的方向 可以是水平,垂直可选值horizontal,vertical*/
+        speed: 1000,
+        /*滑动速度,自动滑动开始到结束的时间(ms)   类型:数字    默认:300配合autoplay*/
+        autoplayDisabledOninteraction: true,
+        /*用户操作swiper,是否禁止autoplay 操作:触碰 拖动 点击 (分页)默认是true  可选的值false*/
+        autoplayStopOnLast:false,
+        /*切换到最后一个slide停止自动切换 ps:loop时无效   默认:false不停*/
+         grabCursor: true,
+        /*  鼠标指针形状(鼠标覆盖的时候是手,拖动的时候是抓手)  可选值:true false  默认:flase没有抓手*/
+        effect: "slider",
+        pagination: ".swiper-pagination",
+        prevButton: ".swiper-button-prev",
+        nextButton: ".swiper-button-next",
         loop: true,
-        //开启鼠标滚轮控制Swiper切换
-        mousewheel: true,
+         //setInterval("mySwiper.slidePrev()",2000);
       },
-      // 控制swiperImgLoad只回调一次
-      isLoad: true,
-    };
+    }
   },
   methods: {
     // 用于检测轮播图加载完后的事件；为了使controlBar的offsetTop值更加精确

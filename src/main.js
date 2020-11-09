@@ -16,6 +16,7 @@ Vue.use(VueLazyLoad);
 // 安装toast插件
 Vue.use(toast)
 
+// 安装轮播图插件
 Vue.use(VueAwesomeSwiper);
 
 // 事件总线的添加，用于解决滚动区域BUG问题

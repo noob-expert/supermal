@@ -55,10 +55,14 @@ export default {
   methods: {
     GetCategory() {
       return getCategory().then((res) => {
-        // console.log(res);
         this.title = res.data.data.category.list;
+        // 设置初始值
+        getSubcategory(this.title[0].maitKey).then((res) => {
+        this.content = res.data.data.list;
+      })
       });
     },
+    // 点击左侧列表样式后获取商品信息
     titleClick(index) {
       getSubcategory(this.title[index].maitKey).then((res) => {
         this.content = res.data.data.list;
