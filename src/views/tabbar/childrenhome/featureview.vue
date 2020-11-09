@@ -1,7 +1,7 @@
 <template>
 <div id="featureview">
     <a :href="href">
-        <img src="~@/assets/img/tabbar/featureview.jpg" alt="">
+        <img src="~@/assets/img/tabbar/featureview.png" alt="">
     </a>
 </div>
 </template>

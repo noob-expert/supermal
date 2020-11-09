@@ -6,6 +6,12 @@ import VueAwesomeSwiper from "vue-awesome-swiper";
 import "swiper/dist/css/swiper.css";
 import store from "./store/index.js"
 import toast from "@/components/common/toast/Toast.vue"
+// 解决移动端300ms延迟问题
+import FastClick from "fastclick"
+FastClick.attach(document.body)
+// 实现图片懒加载功能,配置后图片:src属性修改为v-lazy,此项目未修改
+import VueLazyLoad from "vue-lazyload";
+Vue.use(VueLazyLoad);
 
 // 安装toast插件
 Vue.use(toast)
