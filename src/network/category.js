@@ -14,13 +14,3 @@ export function getSubcategory(maitKey) {
         }
     }).catch(err => err);
 }
-
-export function getCategoryDetail(miniWallkey, type) {
-    return request({
-        url: "/subcategory/detail",
-        params: {
-            miniWallkey,
-            type
-        }
-    }).catch(err => err);
-}
