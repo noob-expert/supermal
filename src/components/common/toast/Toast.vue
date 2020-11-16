@@ -27,6 +27,17 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+/* toast插件的位置 */
+.toast{
+  position:fixed;
+  left: 50%;
+  top:50%;
+  transform: translateX(-50%) translateY(-50%);
+  text-align:center;
+  font-size:20px;
+  color:#fff;
+  background-color: rgba(0,0,0,.75);
+  z-index:999
+}
 </style>

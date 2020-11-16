@@ -48,7 +48,6 @@ import { debounce } from "@/components/common/tool/debounce.js";
 import BottomBar from "@/components/common/botbar/BottomBar.vue";
 import backtop from "@/components/content/backtop/backtop";
 import { BackTopMixin } from "@/components/common/tool/mixin.js";
-
 // 获取子组件
 import NavBar from "@/components/common/tabbar/NavBar.vue";
 import DetailsNavBar from "./DetailsNavBar";
@@ -83,7 +82,7 @@ export default {
       goodsparam: {},
       comment: {},
       recommendsinfo: [],
-      itemlocation: Function,
+      itemlocation: null,
       CartGoods:{}
     };
   },
@@ -217,7 +216,8 @@ export default {
     cartclick() {
       // this.$store.commit("addCart",this.CartGoods)
     this.$store.dispatch('addGoods',this.CartGoods)
-    console.log(this.$store.state.goods); 
+    this.$toast.show("已加入购物车",1000)
+
   },
   },
   
@@ -248,4 +248,6 @@ export default {
   overflow: hidden;
   height: 660px;
 }
+
+
 </style>

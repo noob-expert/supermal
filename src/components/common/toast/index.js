@@ -16,4 +16,7 @@ obj.install=function(Vue){
     document.body.appendChild(toast.$el)
 
     Vue.prototype.$toast=toast
+
 }
+
+export default obj

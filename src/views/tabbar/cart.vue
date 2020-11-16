@@ -10,6 +10,7 @@
       </scroll>
     </div>
     <Sum></Sum>
+    <Toast class="toast"></Toast>
   </div>
 </template>
 
@@ -18,9 +19,11 @@
 import NavBar from "@/components/common/tabbar/NavBar";
 import scroll from "@/components/common/scroll/scroll";
 
+
 // 获取子组件
 import CartList from "@/views/tabbar/childrencart/cartList";
 import Sum from "@/views/tabbar/childrencart/sum"
+
 
 export default {
   name: "Cart",
@@ -28,7 +31,7 @@ export default {
     NavBar,
     CartList,
     scroll,
-    Sum
+    Sum,
   },
   computed: {
     showLength() {
@@ -56,4 +59,7 @@ export default {
   height: 600px;
   overflow: hidden;
 }
+
+
+
 </style>
