@@ -1,6 +1,6 @@
 <template>
   <div class="cartList">
-    <div v-for="(item, index) in Item" :key="index" >
+    <div v-for="(item, index) in getItem" :key="index" >
     <CartListItem :iteminfo="item"></CartListItem>
     </div>
   </div>
@@ -21,9 +21,10 @@ export default {
       CartListItem
   },
   computed: {
-    ...mapGetters({
-      Item: "getItem"
-    }),
+    // ...mapGetters({
+    //   ItemAll: "getItem"
+    // }),
+        ...mapGetters(["getItem"]),
     // isActive(){
     //     return 
     // }

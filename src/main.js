@@ -19,11 +19,13 @@ Vue.use(VueAwesomeSwiper);
 // 事件总线的添加，用于解决滚动区域BUG问题
 Vue.prototype.$bus=new Vue();
 
+Vue.prototype.$store=store
+
 // VueCLI3版本
 new Vue({
+  store,
   router:Router, //我的天，这里如果使用ES6增强写法的话，千万记得一定一定一定要import router!!!!
-  render: h => h(App),
-  store:store
+  render: h => h(App)
 }).$mount('#app')
 
 // VueCLI4版本

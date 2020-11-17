@@ -12,6 +12,10 @@ export default {
             return false
           }
     }
+    },
+    beforeUpdate(){
+      // 这里做调试用
+      // console.log(this.isActive);
     }
 
 }

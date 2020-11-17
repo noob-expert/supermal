@@ -44,15 +44,24 @@ export default {
   text-align: center;
   font-size: 14px;
   position: relative;
-  padding-bottom: 84px;
+  padding-bottom: 40px;
   width: 170px;
   /* overflow: hidden; */
 }
+.goodslistitem a{
+  width:100%;
+}
 .goodslistitem img {
   width: 100%;
+  height: 260px;
 }
 .goodslistitem p {
-  height: 84px;
+  height: 40px;
+  width:100%;
+  /* 设置缩略 */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   vertical-align: center;
   position: absolute;
   /* width: 100px; */

@@ -215,7 +215,8 @@ export default {
       // 点击购物车
     cartclick() {
       // this.$store.commit("addCart",this.CartGoods)
-    this.$store.dispatch('addGoods',this.CartGoods)
+      // 我的天呐？问题原因在这里？！！！！！！！！！！！！！！！！！
+    this.$store.dispatch('addGoods',JSON.parse(JSON.stringify(this.CartGoods)))
     this.$toast.show("已加入购物车",1000)
 
   },

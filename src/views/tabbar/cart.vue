@@ -10,7 +10,6 @@
       </scroll>
     </div>
     <Sum></Sum>
-    <Toast class="toast"></Toast>
   </div>
 </template>
 

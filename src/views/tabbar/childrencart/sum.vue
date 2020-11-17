@@ -48,7 +48,6 @@ export default {
   },
   methods: {
     allcheckClick() {
-      console.log(this.checkLength);
       if (this.isSelectAll) {
         //全部选中
         for (let i of this.TotalItem) {

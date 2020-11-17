@@ -1,19 +1,19 @@
 <template>
-  <div class="ListItem" >
+  <div class="ListItem">
     <buttoncheck
       :isActive="iteminfo.checked"
-      @click.native="btnClick"
       ref="but"
+      @click.native="btnClick"
     ></buttoncheck>
     <div class="itemimg">
       <img :src="iteminfo.image" alt="" />
     </div>
     <div class="iteminfo">
       <div class="itemtitle">
-        <p>{{ iteminfoa }}</p>
+        {{ iteminfo.title }}
       </div>
       <div class="itemdesc">
-        <p>{{ iteminfo.desc }}</p>
+        {{ iteminfo.desc }}
       </div>
       <div class="itemprice">
         <p class="newprice">{{ iteminfo.newPrice | showPrice }}</p>
@@ -29,22 +29,26 @@ import buttoncheck from "@/components/common/button/button.vue";
 export default {
   name: "CartListItem",
   props: {
-    iteminfo: Object,
+    iteminfo: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+  },
+  data() {
+    return {};
   },
   components: {
     buttoncheck,
   },
+  computed: {},
   methods: {
     btnClick() {
-      this.iteminfo.checked=!this.iteminfo.checked
+      this.iteminfo.checked = !this.iteminfo.checked;
     },
   },
-  computed:{
-      iteminfoa(){
-          this.iteminfo.checked
-      }
-  },
-    filters: {
+  filters: {
     showPrice(price) {
       //   console.log(typeof price);//string
       return "￥" + parseFloat(price).toFixed(2);
@@ -75,7 +79,7 @@ export default {
 .itemdesc {
   width: 100%;
   overflow: hidden;
-  /* 文本不换行 */
+  /* 文本缩略图效果 */
   white-space: nowrap;
   text-overflow: ellipsis;
 }
