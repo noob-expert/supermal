@@ -69,13 +69,13 @@ export default {
 }
 img {
   width: 100%;
-  height: 12rem;
+  height: 220px;
   background-size: 100% 100%;
 }
 .swiper-slide {
   width: 100%;
-  height: 12rem;
-  line-height: 12rem;
+  height: 220px;
+  line-height: 220px;
   font-size: 0.3rem;
   text-align: center;
   background-color: rosybrown;
