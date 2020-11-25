@@ -48,9 +48,13 @@ export default {
 </script>
 
 <style>
-.Tabbaritem img{
+.Tabbaritem .fas{
     height:24px;
     width:24px;
-    vertical-align: center;
+    /* font-size: 16px; */
+    padding-top:5px;
+    
+    vertical-align: middle;
+    text-align: center;
 }
 </style>

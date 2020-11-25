@@ -87,7 +87,7 @@ export default {
   height: 100vh;
 }
 .classside {
-  height: 580px;
+  height: 640px;
   overflow: hidden;
 }
 </style>
